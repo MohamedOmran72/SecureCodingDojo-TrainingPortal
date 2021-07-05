@@ -138,7 +138,7 @@ let registerLocalUser = function(req,res){
     }
 
     var userEmail = newUser.userEmail;
-    if(util.isNullOrUndefined(userEmail) || isEmailValid(userEmail)===false){
+    if(util.isNullOrUndefined(userEmail) || isEmailValid(userEmail)===false || validator.matches(userEmail, /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)===false){
         return util.apiResponse(req, res, 400, "Invalid user email.");
     }
 
