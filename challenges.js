@@ -84,6 +84,7 @@ function init(){
             }
         }
     }
+    process.env.CHALLENGE_MASTER_SALT="1";
 
     if(util.isNullOrUndefined(process.env.CHALLENGE_MASTER_SALT)){
         util.log("WARNING. CHALLENGE_MASTER_SALT not set. Challenges may be bypassed.");

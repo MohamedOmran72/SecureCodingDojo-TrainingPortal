@@ -196,11 +196,25 @@ let createUpdateUserInternal = (username, localUser, password) => {
 
 let createUpdateUser = function(req, res, username, localUser, password){
     
-    var isStrongPass = validator.matches(password,/.{16,}/)==true &&
-    validator.matches(password,/[a-z]/)==true;
+    var passwordValidator = require('password-validator');
 
-    if(!isStrongPass){
-        return util.apiResponse(req, res, 400, "Select a password that is made up from three or more words (16 or more characters)");
+    // Create a schema
+    var schema = new passwordValidator();
+
+    // Add properties to it
+    schema
+    .is().min(16)                                    // Minimum length 16
+    .is().max(100)                                  // Maximum 6
+    .has().uppercase()                              // Must have uppercase letters
+    .has().lowercase()                              // Must have lowecase letters
+    .has().digits(2)                                // Must have at least 2 digits
+    .has().not().spaces()                           // Should not have spaces
+    .has().symbols()                                // Should not Special
+    .is().not().oneOf(['Passw0rd', 'Password123']); // Blacklist these values
+
+
+    if(!schema.validate(password)){
+        return util.apiResponse(req, res, 400, "Select a password =>> length 16-100, upper+lower, >= 2 digits, Special char, no space, not (Passw0rd/Password123)");
     }
 
     createUpdateUserInternal(username, localUser, password);
