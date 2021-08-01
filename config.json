@@ -1,7 +1,7 @@
 {
-    "dojoUrl" : "http://localhost:8081",
+    "dojoUrl" : "https://mahmoudsami.eastus.cloudapp.azure.com:8081",
     "moduleUrls" : {
-        "blackBelt":"http://localhost:8080",
+        "blackBelt":"http://mahmoudsami.eastus.cloudapp.azure.com:8080",
         "securityCodeReviewMaster":"https://owasp.org/SecureCodingDojo/codereview101/?fromPortal"
     },
 
