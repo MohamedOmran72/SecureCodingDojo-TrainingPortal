@@ -240,7 +240,9 @@ app.get('/main', (req, res) => {
 
 app.get('/Instructorpage', (req, res) => {
   let updatedHtml = auth.addCsrfToken(req, mainInstructorHtml);
-  res.send(updatedHtml);
+  if(req.user.userType === "instructor"){
+    res.send(updatedHtml);
+  }
 });
 
 
