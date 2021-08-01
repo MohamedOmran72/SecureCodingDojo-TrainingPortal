@@ -724,8 +724,17 @@ process.on('SIGINT', function() {
   process.exit();
 });
 
-app.listen(8081,function(){
-    util.log('Listening on 8081');
-    util.log('Configured url:'+config.dojoUrl);
-    util.log('Is secure:'+config.dojoUrl.startsWith("https")); 
-});
+
+var https = require('https');
+var privateKey  = fs.readFileSync('key.pem', 'utf8');
+var certificate = fs.readFileSync('cert.pem', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+
+// your express configuration here
+
+var httpsServer = https.createServer(credentials, app);
+
+httpsServer.listen(8081);
+
+
